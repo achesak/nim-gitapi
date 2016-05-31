@@ -210,21 +210,21 @@ proc gitCommit*(repo : GitRepo, message : string, user : string = "", files : se
     discard repo.gitCommand2(command & files)
 
 
-proc gitLog*(repo : GitRepo, indentifier : string = "", limit : int = -1, templateArg : string = "", args : seq[string]): string = 
+proc gitLog*(repo : GitRepo, identifier : string = "", limit : int = -1, templateArg : string = "", args : seq[string]): string = 
     ## Gets the repository log.
     
     var command : seq[string] = @["log"]
     if identifier != "":
         command = command & @[identifier, "-n", "1"]
     if limit != -1:
-        command = command & ["-n", intToStr(limit)]
+        command = command & @["-n", intToStr(limit)]
     if templateArg != "":
         command = command & @[templateArg]
     
     for i in args:
-        commands = commands & @[i[0], i[1]]
+        command = command & @["" & i[0], "" & i[1]]
     
-    return repo.gitCommand2(commands)
+    return repo.gitCommand2(command)
 
 
 proc gitPush*(repo : GitRepo, destination : string = "", branch : string = "") {.noreturn.} = 
