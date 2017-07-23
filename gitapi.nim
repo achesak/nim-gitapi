@@ -12,9 +12,7 @@ import strutils
 
 
 type
-    GitRepo* = ref GitRepoInternal
-    
-    GitRepoInternal* = object
+    GitRepo* = ref object
         path : string
         user : string
 
